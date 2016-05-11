@@ -49,12 +49,17 @@ class SmartMotor:
         self.write(msg="G\n",MotorNum=_MotorNum)
 
     def write(self, msg, MotorNum=0):
-        MotorNum = bytes([MotorNum])
-        self.ser.write(MotorNum+msg.encode('ascii'))
-        print(MotorNum+msg.encode('ascii'))
+        if MotorNum != 0:
+            MotorNum = bytes([MotorNum])
+            self.ser.write(MotorNum+msg.encode('ascii'))
+            print(MotorNum+msg.encode('ascii'))
+        else:
+            self.ser.write(msg.encode('ascii'))
+            print(msg.encode('ascii'))
+
 
     def stop(self, MotorNum):
-        self.write('S', MotorNum)
+        self.write('S\n', MotorNum)
 
     def updateVelocity(self,_velocity,_Acceleration,_MotorNum):
         self.Velocity = _velocity

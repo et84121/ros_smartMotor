@@ -22,23 +22,19 @@ class SmartMotor:
         try:
             self.ser.open()
         except :
-            print("SmartMotor serial port open error. Port: %s baudrate:%s" % (self.port,self.baudrate))
             rospy.logerr("SmartMotor serial port open error. Port: %s baudrate:%s" % (self.port,self.baudrate))
 
     def giveupSerialConnection(self):
         try:
             self.ser.close()
         except:
-            print("SmartMotor serialPort close error")
             rospy.logwarn("SmartMotor serial Port close error")
 
     def isConnected(self):
         if self.ser._isOpen():
-            print('serialConnection open correctly')
             rospy.loginfo('SmartMotor serialConnection open correctly')
             return(True)
         else:
-            print('serialConnection open fail')
             rospy.loginfo('SmartMotor serialConnection open fail')
             return(False)
 

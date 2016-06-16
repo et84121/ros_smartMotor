@@ -9,7 +9,7 @@ def print_help():
     print("ps: If MotorNum is zero ,serial output will not add motor ID")
 
 
-SM = smartMotor.SmartMotor("/dev/ttyUSB0",9600)
+SM = smartMotor.SmartMotor("/dev/ttyUSB1",9600)
 SM.setupSerialConnection()
 print_help()
 

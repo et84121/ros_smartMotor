@@ -61,6 +61,6 @@ class SmartMotor:
         self.Velocity = _velocity
         self.Acceleration = _Acceleration
         self.write(msg='MV\n',MotorNum=_MotorNum)
-        self.write(msg='A='+str(_Acceleration)+'\n',MotorNum=_MotorNum)
         self.write(msg='V='+str(_velocity)+'\n',MotorNum=_MotorNum)
+        self.write(msg='A='+str(_Acceleration)+'\n',MotorNum=_MotorNum)
         self.write(msg='G\n',MotorNum=_MotorNum)

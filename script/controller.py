@@ -3,17 +3,12 @@ import roslib; roslib.load_manifest('smart_motor')
 import rospy, serial, smartMotor, math
 from geometry_msgs.msg import Twist
 
-m = None
+m = smartMotor.SmartMotor('/dev/ttyUSB1',9600)
+m.setupSerialConnection()
 
 def main():
     rospy.init_node('SmartMotor_Controller')
     rospy.Subscriber('/cmd_vel', Twist, callback)
-
-    # setup the SmartMotor
-    global m
-    m = smartMotor.SmartMotor('/dev/ttyUSB0',9600)
-    m.setupSerialConnection()
-
     rospy.spin()
 
 def callback(_twist):
@@ -36,8 +31,8 @@ def callback(_twist):
         #log the speed
         rospy.loginfo("right_whele_speed: %f left_whele_speed:%f r:%f" % (right_whele_speed,left_whele_speed,wheleRadius))
         #deliver the speed to Motor (1 rps = 60 rpm = 32768)
-        m.updateVelocity(_MotorNum= 1,_Acceleration= 1000,_velocity= right_whele_speed * 32768)
-        m.updateVelocity(_MotorNum= 2,_Acceleration= 1000,_velocity= left_whele_speed * 32768)
+        m.updateVelocity(_MotorNum= 129,_Acceleration= 1000,_velocity= int(right_whele_speed * 32768))
+        m.updateVelocity(_MotorNum= 130,_Acceleration= 1000,_velocity= int(left_whele_speed * 32768) * -1)
     else:
         rospy.logerr("Please input param 'wheleDistance' or 'wheleRadius'")
 
